@@ -5,11 +5,17 @@ template <class K, class T> class HashEntry {
 private:
     K clave;
     T valor;
+    int ocurrencias;
 public:
+    HashEntry(){
+
+    }
+
     HashEntry(K clave , T valor)
     {
         this->clave = clave;
         this->valor = valor;
+        ocurrencias = 1;
     }
 
     K getClave()

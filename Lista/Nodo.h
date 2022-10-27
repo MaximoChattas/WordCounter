@@ -13,6 +13,10 @@ private:
     Nodo<T> *siguiente;
 
 public:
+    Nodo(){
+    }
+    Nodo(T dato);
+
     T getDato();
 
     void setDato(T);
@@ -22,6 +26,7 @@ public:
     void setSiguiente(Nodo<T>*);
 
 };
+
 
 template<class T>
 T Nodo<T>::getDato() {
@@ -41,6 +46,13 @@ Nodo<T> *Nodo<T>::getSiguiente() {
 template<class T>
 void Nodo<T>::setSiguiente(Nodo<T> *siguiente) {
     this->siguiente = siguiente;
+}
+
+template<class T>
+Nodo<T>::Nodo(T dato)
+{
+    this->dato = dato;
+    this->siguiente = nullptr;
 }
 
 #endif //INC_2021A2_U02_LISTAS_MAXIMOCHATTAS_NODO_H

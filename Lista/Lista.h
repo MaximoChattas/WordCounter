@@ -42,6 +42,8 @@ public:
   void mostrar();
 
   void insertAfterN (double oldValue , double newValue , int n);
+
+  Nodo<T>* getInicio();
 };
 
 /**
@@ -360,6 +362,11 @@ void Lista<T>::insertAfterN(double oldValue, double newValue, int n)
         }
     }
 
+}
+
+template<class T>
+Nodo<T> *Lista<T>::getInicio() {
+    return inicio;
 }
 
 #endif // U02_LISTAS_LISTA_LISTA_H_

@@ -7,6 +7,8 @@
 
 using namespace std;
 
+//Para Excluir palabras intentar tree.remove()
+
 void deletePunctuation(string &a);
 void counter(char* file);
 void alphabeticalOrder(char* file);
@@ -41,49 +43,75 @@ int main(int argc , char* argv[]) {
 
 void counter(char* file)
 {
-    HashMapList<string , unsigned int> hash(100, hashfunc);
+    HashMapList<string , string> hash(100, hashfunc);
     //Implementar Funcion Hash para determinar cantidad de palabras diferentes.
 
     std::ifstream archivo; //Archivo de Texto a Leer
 
-    std::string auxLinea; //Linea de texto a analizar
+    std::string auxLinea , auxWord; //Linea de texto a analizar
 
-    unsigned int lineas = 0 , caracteres = 0 , palabras = 0; //Counters
+    int lineas = 0 , caracteres = 0 , palabras = 0 , palabrasDiferentes = 0; //Counters
 
     archivo.open(file);
 
     if(archivo.is_open())
     {
+        //Recorrido palabra a palabra
+        //Se realiza el conteo total de palabras y palabras diferentes
+        while (archivo >> auxWord)
+        {
+            palabras++;
+            deletePunctuation(auxWord);
+            try
+            {
+                hash.put(auxWord , auxWord);
+            }
+            catch (std::invalid_argument &Error)
+            {
+                palabrasDiferentes--;
+            }
+        }
+
+        palabrasDiferentes += palabras;
+
+        archivo.clear();
+        archivo.seekg(0 , ios::beg);
+
+        //Recorrido linea por linea
+        //Se realiza el conteo de lineas y caracteres totales
         while (archivo.peek() != EOF)
         {
             std::getline(archivo , auxLinea); //Se obtiene la linea
             lineas++;
+            caracteres += auxLinea.size();
 
-            unsigned int len = auxLinea.length();
-            int prevSpace = 0;
-
-            for (int i = 0 ; i < len ; i++) //Se recorre la linea
-            {
-                caracteres++;
-
-                if (auxLinea[i] == ' ')
-                {
-                    palabras++; //OPTIMIZAR
-//                    std::cout << auxLinea.substr(prevSpace , i-prevSpace);
-                    prevSpace = i+1;
-                }
-            }
-
-            if(auxLinea[len - 1] != ' ')
-            {
-                palabras++;
-//                std::cout << auxLinea.substr(prevSpace , len-prevSpace);
-            }
+//            unsigned int len = auxLinea.length();
+//            int prevSpace = 0;
+//
+//            for (int i = 0 ; i < len ; i++) //Se recorre la linea
+//            {
+//                caracteres++;
+//
+//                if (auxLinea[i] == ' ')
+//                {
+//                    palabras++; //OPTIMIZAR
+////                    std::cout << auxLinea.substr(prevSpace , i-prevSpace);
+//                    prevSpace = i+1;
+//                }
+//            }
+//
+//            if(auxLinea[len - 1] != ' ')
+//            {
+//                palabras++;
+////                std::cout << auxLinea.substr(prevSpace , len-prevSpace);
+//            }
         }
 
         std::cout << "Lineas: " << lineas << '\n';
         std::cout << "Palabras: " << palabras << '\n';
+        std::cout << "Palabras Diferentes: " << palabrasDiferentes << '\n';
         std::cout << "Caracteres: " << caracteres << '\n';
+
     }
     else
     {

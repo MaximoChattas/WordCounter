@@ -79,7 +79,16 @@ template <class K, class T> T HashMapList<K, T>::get(K clave)
         throw std::invalid_argument("El Dato no se encuentra en la tabla de hash\n");
     }
 
-    if(tabla[pos]->getClave() == clave) return tabla[pos]->getValor();
+    Nodo<HashEntry<K , T> > *auxNodo = tabla[pos]->getInicio();
+
+    while (auxNodo != nullptr)
+    {
+        if (auxNodo->getDato().getClave() == clave)
+        {
+            return auxNodo->getDato().getValor();
+        }
+        auxNodo = auxNodo->getSiguiente();
+    }
 
     throw std::invalid_argument("El Dato no se encuentra en la tabla de hash\n");
 }
@@ -91,6 +100,20 @@ template <class K, class T> void HashMapList<K, T>::put(K clave, T valor)
     if (tabla[pos] == NULL)
     {
         tabla[pos] = new Lista<HashEntry<K , T> >;
+    }
+
+    else
+    {
+        Nodo<HashEntry<K , T> > *auxNodo = tabla[pos]->getInicio();
+
+        while (auxNodo != nullptr)
+        {
+            if (auxNodo->getDato().getValor() == valor)
+            {
+                throw std::invalid_argument("El dato ya se encuentra en la funcion de Hash\n");
+            }
+            auxNodo = auxNodo->getSiguiente();
+        }
     }
 
     tabla[pos]->insertarUltimo(HashEntry<K , T>(clave , valor));
