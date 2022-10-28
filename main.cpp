@@ -1,5 +1,6 @@
 #include <ctime>
 #include <iostream>
+#include <sstream>
 #include <string>
 #include <fstream>
 #include "Arbol/ArbolBinario.h"
@@ -12,6 +13,7 @@ using namespace std;
 void deletePunctuation(string &a);
 void counter(char* file);
 void alphabeticalOrder(char* file);
+void alphabeticalOrderLimit(char* file , int cantidad);
 unsigned int hashfunc (string word);
 
 int main(int argc , char* argv[]) {
@@ -30,7 +32,30 @@ int main(int argc , char* argv[]) {
 
     if (argc == 3)
     {
-        alphabeticalOrder(argv[1]);
+        if(strcmp(argv[2] , "-palabras") == 0) alphabeticalOrder(argv[1]);
+    }
+
+    if (argc == 4)
+    {
+        if(strcmp(argv[2] , "-palabras") == 0)
+        {
+            if(strcmp(argv[3] , "0") == 0) alphabeticalOrder(argv[1]); //Mostrar Todas las palabras
+
+            else
+            {
+                std::istringstream iss( argv[3] ); //Convertir de String a Int para poder utilizarlo
+                int val;
+
+                if (iss >> val)
+                {
+                    alphabeticalOrderLimit(argv[1] , val);
+                }
+                else
+                {
+                    cout << "Ingrese un Argumento Valido (ver instrucciones)\n";
+                }
+            }
+        }
     }
 
     clock_t end = clock();
@@ -84,27 +109,6 @@ void counter(char* file)
             std::getline(archivo , auxLinea); //Se obtiene la linea
             lineas++;
             caracteres += auxLinea.size();
-
-//            unsigned int len = auxLinea.length();
-//            int prevSpace = 0;
-//
-//            for (int i = 0 ; i < len ; i++) //Se recorre la linea
-//            {
-//                caracteres++;
-//
-//                if (auxLinea[i] == ' ')
-//                {
-//                    palabras++; //OPTIMIZAR
-////                    std::cout << auxLinea.substr(prevSpace , i-prevSpace);
-//                    prevSpace = i+1;
-//                }
-//            }
-//
-//            if(auxLinea[len - 1] != ' ')
-//            {
-//                palabras++;
-////                std::cout << auxLinea.substr(prevSpace , len-prevSpace);
-//            }
         }
 
         std::cout << "Lineas: " << lineas << '\n';
@@ -138,6 +142,39 @@ void alphabeticalOrder (char* file)
 
         }
         alphOrder.inorder();
+    }
+    else
+    {
+        throw std::invalid_argument("ERROR: El archivo no fue encontrado\n");
+    }
+
+}
+
+void alphabeticalOrderLimit (char* file , int cantidad)
+{
+    ArbolBinario<string> alphOrder;
+    std::ifstream textFile; //Text File to Read
+    std::string auxString;
+
+    textFile.open(file);
+
+    if(textFile.is_open())
+    {
+        while (textFile >> auxString)
+        {
+            deletePunctuation(auxString);
+
+            alphOrder.put(auxString);
+
+        }
+
+        try
+        {
+            alphOrder.inOrderLimit(cantidad);
+            std::cout << "No hay la cantidad suficiente de palabras para mostrar\n";
+        }
+        catch (std::invalid_argument &Error){}
+
     }
     else
     {

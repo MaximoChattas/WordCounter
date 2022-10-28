@@ -1,120 +1,29 @@
+Raymond A. Serway recibió su doctorado en el Illinois Institute of Technology y es profesor emérito en la James
+Madison University. En 1990 recibió el Madison Scholar Award en la James Madison University, donde enseñó durante
+17 años. El doctor Serway comenzó su carrera docente en la Clarkson University, donde dirigió investigación y enseñó
+de 1967 a 1980. En 1977 recibió el Distinguished Teaching Award en la Clarkson University y el Alumni Achievement
+Award del Utica College en 1985. Como científico invitado en el IBM Research Laboratory en Zurich, Suiza, trabajó con
+K. Alex Müller, ganador del premio Nobel 1987. El doctor Serway también fue científico visitante en el Argonne National
+Laboratory, donde colaboró con su mentor y amigo, Sam Marshall. Además de las primeras ediciones de este libro,
+el doctor Serway es coautor de Principles of Physics, cuarta edición; College Physics, séptima edición; Essentials of
+College Physics; y Modern Physics, tercera edición. También es coautor del libro de bachillerato Physics, publicado
+por Holt, Rinehart y Winston. Además, el doctor Serway ha publicado más de 40 artículos de investigación en el campo
+de física de materia condensada y ha impartido más de 70 conferencias en reuniones profesionales. El doctor Serway
+y su esposa, Elizabeth, disfrutan viajar, jugar al golf, cantar en un coro de iglesia y pasar tiempo de calidad con
+sus cuatro hijos y ocho nietos.
 
-El Primer Trauma (1962)
-
-Mamá pidió dos cafés... la empalagosa voz de Jhonny Farfán impregnaba laatmósfera del ambiente...
-en el oro de tu pelo me he enredado, el fulgor de tumirada me ha quemado..., bebí un quemante sorbo
-de la humeantes taza... humm...nunca había probado un café así, negro... negrísimo, amargo..., pero
-delicioso... muy delicioso, desde la ventana del Café-Bar podía observar el desierto cruce de las
-avenidas Primavera y República de Panamá, en una esquina los rojizos ladrillos de los laboratorios
-Ross, de cuidados jardines y con sus carteles Mejor, Mejora, Mejoral; en la otra esquina, las grises
-paredes de la fábrica de galletas Fénix... las cinco y media de la madrugada... abril... ya se sentía el
-frío otoñal.
-
-Saboreaba el café lentamente... ¿cómo lo hacen, má?... está amargo, pero me gusta... recordé que
-cuando mamá ponía la tetera en el primus, al hervir el aguaechaba un puñado de café... pero resultaba
-con otro sabor, este café era másfragancioso, más rico, ¿cómo lo harían?..., aún era muy temprano para
-llegar a la pensión donde me quedaría hospedado...¡iba a estudiar la secundaria en la capital dela República!
-
-¿Qué sabía de Lima a los once años de edad?, bueno... sólo lo conocido en lanunca olvidada excursión
-del tercero, aquella vez llegamos hasta El Callao, ... ¿quéme depararía el destino, negrito martincito?...
-en la oscuridad del colectivo cavilabacon suma preocupación, los demás pasajeros dormitaban, el chofer
-encendió laradio... yo sé que te han dicho que no valgo nada, que vivo tan sólo para loscaprichos de tu
-corazón... esos Panchos son unos tromes... masculló, ...atrás dejo mi pacífico pueblito de gente humilde
-y sencilla para ir a la gran ciudad, ¿cómo será lagente de Lima?...¿serán amables y honestos?..., las
-luces de los vehículos quecirculaban en sentido contrario iluminaban intermitentemente el interior del
-automóvil, al llegar al puente de Lurín el colectivo se detuvo unos momentos, allí seubicaba un Puesto
-de Control, algunos vendedores se acercaron gritando...¡alfajoreees!... ¡sánguchiiis de torreja de camarones!...,
-los somnolientos pasajerosni se inmutaron, reanudamos el viaje a través del desierto y la oscuridad, a las
-cinco de la madrugada el automóvil se desvió de la carretera Panamericana y se internó ala izquierda por una
-calzada bordeada de chacras, al rato pasamos un estadio y uncementerio y empezaron a aparecer las primeras
-casas, el chofer giró otra vez a laizquierda e ingresamos a la avenida Primavera, fue en ese momento
-que mamá meseñaló unos edificios de color rojizo que apenas se distinguían en la semipenumbra, allí es donde
-estudiarás, es el Ricardo Palma... no pude apreciar bien, pero me pareció mas grande que mi escuelita fiscal
-453; el colectivo se detuvo en el cruce dePrimavera y República de Panamá y descendimos... las cinco y
-cuarto... muytemprano...vamos a tomarnos un café ... murmuró mamá e ingresamos al café de laesquina, el Tobara
-
-Salimos, el ambiente de la calle había cambiado, de la soledad del amanecer aun relativo movimiento vehicular
-y peatonal, recorrimos la avenida Primavera,algunos escolares transitaban tranquilamente, pasamos por el
-Tobara, cruzamosRepública de Panamá, dejamos atrás los laboratorios Ross, al llegar a la esquina deSan Felipe
-el guía giró a la izquierda, me sobreparé...¿Adónde vamos?... preguntéreceloso mirando la inmensa fachada del
-colegio que da a la avenida Primavera, pues allí queda la puerta de ingreso...Oe,no te preocupes, los
-colegiales entran por la lateral... esteee... es que en mi 453 todos ingresaban por la principal... era la
-única puerta.
-
-Llegamos ante un portón plomo, mi guía se despidió y quedé solo... solito unavez más... paradito frente a la
-entrada me sentí como Dante a las puertas delinfierno, sólo que yo no tenía un Virgilio para iniciar la
-travesía... grupos dealumnos ingresaban conversando, bromeando, lentamente crucé el umbral que metransfería
-a un mundo nuevo, diferente, iba a estudiar la secundaria en un colegiomuy grande, al que asistía una gran
-cantidad de estudiantes, inconscientementevisioné mi 453 con sus seis salones y la temible Dirección.
-
-Llegué a un patio gigantesco, grupitos de alumnos por allá y acullá, indecisoy perdido me puse a buscar el
-1ro. “A”, Común, no te vayas a equivocar con el 1ro.“A” Industrial o Comercial, preguntando y preguntando
-ubiqué el aula en el pabellón Sierra, hasta el momento iba bien, no me habían agarrado de cholito, elinmenso
-patio se estaba llenando, muchos se saludaban, cancheros, otros como yo,con asustada mirada tratando de
-orientarse; destaca un tabladillo en la parte frontaldel patio, sobre éste sillas alineadas, una gran mesa
-y un micrófono, todo listo parala ceremonia de inauguración del año académico, un muchacho me señaló a un
-viejito bien al terno...es auxiliar de los de primero..., me acerqué y medio temerosole pregunté donde
-formaría el 1ro. “A”, cómo te llamas, hijo, le dije mi nombre,miró un papel... yo seré tu Auxiliar...
-y a partir de hoy formarás aquí... indicándomeuna esquina del vasto patio. Era el señor Chávarri, esa era
-la forma de dirigirse atodos los auxiliares y profesores: señor; en mi 453 no existían auxiliares y a los
-profesores les decíamos maestro, inclusive “metro”.
-
-Las ocho de la mañana, formación... por orden de talla... de más a menos,algunos se empinaban para ser más
-alto que el otro, me puse entre los últimos, otrosse palmeaban las espaldas, se reían, conversaban sobre lo
-que habían hecho enverano... con todos... ¡atención!, tronaron los altoparlantes, silencio, la ceremonia se
-inició... y ahora el Himno Nacional del Perú... tenía que ser del Perú ¿no?,... saludo al frente...¡saludo!,
-llevamos la palma de la mano con los dedos bien estirados haciala cristina, a la altura de la sien derecha
-y... ¡empezó a sonar por los altoparlantes lasnotas del himno!... el alumnado empezó a cantar las estrofas
-del himno patrio, ¡oh!así era más fácil y más bonito cantar el himno, sí, no hay nada que hacer, todo estoes
-diferente,... es secundaria y es Lima
-
-Escuché con atención las palabras que el Director dirigió al alumnado, undiscurso sorprendente... creo... y
-para finalizar el himno de nuestra Gran Unidad... los ricardo palminos empezaron a cantar con gran fervor,
-¿siempre cantarán así?, yome quedé mudo, deslumbrado... Palma es el nombre glorioso, que enaltece estaGran
-Unidad y como él alcancemos el triunfo, con firmeza, lealtad y valor... nocaptaba bien debido a las disímiles
-voces que se elevaban entonando las estrofas,sólo observaba por el rabillo del ojo...¡Deeescanso!... suspiros
-de alivio... a midiestra un muchacho más alto, con el rostro lleno de pecas, me había estadoobservando...
-tú eres nuevo, ¿no?, afirmé moviendo la cabeza... no te preocupes,nosotros te enseñamos el himno de la Unidad...
-nosotros era él, Juan José y sumellizo, Juan Carlos, ¡eran igualitos!, limeños pero buena gente.
-
-Desfilamos al aula, ¡carpetas individuales!... ¡enorme pizarra verde!...¡grandes ventanas!, fascinado, me ubiqué
-estratégicamente en la tercera línea, ni tanlejos ni tan cerca del pupitre, el señor Chávarri empezó a pasar lista,
-luego dictó elhorario de clases... de las ocho de la mañana hasta ¡las doooce!y de tres ¡a seiiiiisde la tarde!..
-coreaban, muchos habían estudiado primaria en la Unidad y se lassabían todo. Empezaron a llegar los profesores,
-cada hora ingresaba uno, dictaba sulista y se retiraba...el primer día siempre es así ..., a las diez de la mañana
-retumbóun timbrazo anunciando recreo, los del coro salieron desesperados, lentamente me paro y salgo del aula,
-camino por el pasadizo de losetas crema/ocre, música criollaen el ambiente, me detuve al borde del patio inmenso
-y miré alrededor, gritos,carreras, grupos... un gran movimiento... ¡Dios!, ¡cómo extrañaba mi 453!... siemprehabía
-tenido un solo profesor en cambio ahora en una mañana habían ingresadovarios, caray... parece bravo la secundaria.
-Las doce en punto, salimos del aula y me sumé al río de alumnos que se dirigían al portón del Dante, afuera
-esperaban losvendedores ambulantes... ¡sanguito, sanguito!... ¡yucas, yucas!,... ¡pastel demanzana!...¡empanadas
-calientitas, pura carne!... un alboroto, en Mala no era así,además esos dulces raros... las yucas no eran yucas,
-era una masa de harina frita bañadas en azúcar, el sanguito una cosa marrón que embarraban en pedacitos de papel,
-el pastel de manzana una cosa cuadrada con algo rojo al medio y a lasempanadas le hacían un hueco al centro y le
-echaban jugo de limón...¡raro!.
-
-Cuidadosamente recorrí en forma contraria el camino de la mañana y llegué ala pensión, saludé y me dirigí
-directo al cuarto, sentado al borde de la cama permanecí silencioso, ensimismado, habían transcurrido tan
-sólo unas horas desdeque llegué de mi pueblo y ya me parecían días, ...mi familia... tan lejos... los ojos
-seme humedecieron...¡a almorzar!... en la mesa ya estaban el bigotón Balta,mecánico y Ulo, camionero, ellos
-almorzaban allí, con el tiempo nos haríamosamigos y yo me encargaría de comprarles sus chatas de pisco “Sol de
-Ica” con el quese emborrachaban y, a veces, me regalaban el vuelto.
-
-Tres de la tarde, en aulas, esperar a los profesores, presentación...mañana empezamos como debe ser ... timbrazo,
-seis de la tarde, salida en tropel,desesperados, ellos iban a sus casas, en cambio yo..., paso a paso me
-encaminé a lacuadra diez de Primavera,...tengo que acostumbrarme, tengo que ser fuerte... ya tengo nuevos apellidos
- en la mente, Ito, Cuadros, Rodríguez el hijo del Director,tiempo después seríamos patas, sobre todo con Cuadros,
-Caca, algunas veces el“ponjita” Luis Ito me invitaría a tomar lonche en su casa de la calle El Carmen, allí
-descubrí qué era el lonche.
-
-Al anochecer subí al techo, azotea la llaman, y desde allí observé en 360grados... avisos luminosos... mas allá
-asomaba el letrero de neón del cine Maximil...estoy en Surquillo... a esa misma hora, en casa, mamá estaría
-atendiendo su puestode frutas, papá todavía no llegaría de su trabajo, chofer del dueño de la botica Unión, mis
-hermanitos estarían jugando, peleando o conversando, aspiré profundo, unaextraña sensación invadió mi cuerpo,
-quizá intuía que a partir de este largo día mivida cambiaría radicalmente...
-
-Miré al oscuro cielo... arriba las estrellas titilaban... pensar que en Mala lasignoraba y acá las sentí
-diferente... acompañan..., bajé por las escaleras y me dirigíal cuarto...este día a terminado, mañana las
-cosas serán diferentes, trataré de ganar amigos... estudiaré... demostraré que mamá no ha luchado en vano
-por mí...(desde aquel día han transcurrido cuarenta años y aún sigo bregando en Lima, pero mi corazón siempre
-estuvo y estará en Mala).
+John W. Jewett, Jr., obtuvo su doctorado en la Ohio State University, con especialidad en las propiedades ópticas y
+magnéticas de la materia condensada. El doctor Jewett comenzó su carrera académica en el Richard Stockton College de
+Nueva Jersey, donde enseñó de 1974 a 1984. En la actualidad es profesor de física en la California State Polytechnic
+University, Pomona. A lo largo de su carrera docente, el doctor Jewett ha sido un activo promotor de la educación en
+ciencias. Además de recibir cuatro becas National Science Foundation, ayudó a fundar y dirigir el Southern California
+Area Modern Physics Institute. También dirigió el Science IMPACT (Institute of Modern Pedagogy and Creative Teaching)
+que trabaja con profesores y escuelas para desarrollar currícula efectiva en ciencia. Los premios del doctor Jewett
+incluyen el Stockton Merit Award en el Richard Stockton College en 1980, el Outstanding Professor Award en la
+California State Polythecnic University para 1991-1992, y el Excellence in Undergraduate Physics Teaching Award de
+la American Association of Physics Teachers en 1998. Ha impartido más de 80 conferencias en reuniones profesionales,
+incluidas conferencias en eventos internacionales en China y Japón. Además de su trabajo en este libro, es coautor de
+Principles of Physics, cuarta edición, con el doctor Serway, y autor de The World of Physics... Mysteries, Magic and
+Myth. Al doctor Jewett le gusta tocar piano con su banda de físicos, viajar y coleccionar antigüedades que se puedan
+usar como aparatos de demostración en clases de física. Lo más importante, le gusta pasar el tiempo con su esposa,
+Lisa, y sus hijos y nietos.

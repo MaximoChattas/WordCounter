@@ -22,6 +22,8 @@ private:
 
     void inOrder(NodoArbol<T> *r);
 
+    void inOrderLimit(NodoArbol<T> *r , int &cantidad);
+
     void postOrder(NodoArbol<T> *r);
 
     void contarPorNivel(NodoArbol<T> *r, int nivel, Lista<int> &list);
@@ -38,6 +40,8 @@ public:
     void preorder();
 
     void inorder();
+
+    void inOrderLimit(int &cantidad);
 
     void postorder();
 
@@ -284,6 +288,29 @@ void ArbolBinario<T>::inOrder(NodoArbol<T> *r)
     inOrder(r->getLeft());
     std::cout << r->getOcurrencia() << ' ' << r->getData() << '\n';
     inOrder(r->getRight());
+}
+
+template<class T>
+void ArbolBinario<T>::inOrderLimit(int &cantidad)
+{
+    inOrderLimit(root , cantidad);
+}
+
+template<class T>
+void ArbolBinario<T>::inOrderLimit(NodoArbol<T> *r , int &cantidad)
+{
+    if(r == nullptr) return;
+
+    inOrderLimit(r->getLeft() , cantidad);
+    std::cout << r->getOcurrencia() << ' ' << r->getData() << '\n';
+    cantidad--;
+
+    if(cantidad == 0)
+    {
+        throw std::invalid_argument("Ejecucion Finalizada\n");
+    }
+
+    inOrderLimit(r->getRight() , cantidad);
 }
 
 /**
