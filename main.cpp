@@ -24,6 +24,7 @@ void occurrenceOrderLimit(char* file , int cantidad);
 
 unsigned int hashfunc (string word);
 
+
 int main(int argc , char* argv[]) {
     clock_t begin;
 
@@ -97,6 +98,10 @@ int main(int argc , char* argv[]) {
     return 0;
 }
 
+/**
+ * Contador de Letras, Caracteres, Lineas, Palabras y Palabras Diferentes
+ * @param file cadena de caracteres que contiene el nombre del archivo a leer
+ */
 void counter(char* file)
 {
     HashMapList<string , string> hash(10000, hashfunc);
@@ -113,7 +118,7 @@ void counter(char* file)
     if(archivo.is_open())
     {
         //Recorrido palabra a palabra
-        //Se realiza el conteo total de palabras, palabras diferentes y caracteresyEspacios sin espacios y sin puntuación
+        //Se realiza el conteo total de palabras, palabras diferentes y caracteres sin espacios y sin puntuación
         while (archivo >> auxWord)
         {
             palabras++;
@@ -135,7 +140,7 @@ void counter(char* file)
         archivo.seekg(0 , ios::beg);
 
         //Recorrido linea por linea
-        //Se realiza el conteo de lineas y caracteresyEspacios totales
+        //Se realiza el conteo de lineas y caracteres totales
         while (archivo.peek() != EOF)
         {
             std::getline(archivo , auxLinea); //Se obtiene la linea
@@ -157,10 +162,14 @@ void counter(char* file)
 
 }
 
+/**
+ * Muestra todas las palabras del texto en orden alfabético
+ * @param file cadena de caracteres que contiene el nombre del archivo a leer
+ */
 void alphabeticalOrder (char* file)
 {
     ArbolBinario<string> alphOrder;
-    std::ifstream textFile; //Text File to Read
+    std::ifstream textFile;
     std::string auxString;
 
     textFile.open(file);
@@ -183,6 +192,11 @@ void alphabeticalOrder (char* file)
 
 }
 
+/**
+ * Muestra las primeras n palabras en orden alfabético
+ * @param file cadena de caracteres que contiene el nombre del archivo a leer
+ * @param cantidad cantidad de palabras a mostrar en orden alfabético
+ */
 void alphabeticalOrderLimit (char* file , int cantidad)
 {
     ArbolBinario<string> alphOrder;
@@ -215,6 +229,10 @@ void alphabeticalOrderLimit (char* file , int cantidad)
 
 }
 
+/**
+ * Muestra todas las palabras del texto ordenadas descendientemente según la cantidad de veces que aparece
+ * @param file cadena de caracteres que contiene el nombre del archivo a leer
+ */
 void occurrenceOrder(char *file)
 {
     ArbolBinario<string> occurenceOrder;
@@ -251,9 +269,13 @@ void occurrenceOrder(char *file)
 
         occurenceOrder.inorder();
     }
-
 }
 
+/**
+ * Muestra las primeras n palabras en orden de ocurrencias
+ * @param file cadena de caracteres que contiene el nombre del archivo a leer
+ * @param cantidad cantidad de palabras a mostrar en orden de ocurrencias
+ */
 void occurrenceOrderLimit(char *file, int cantidad)
 {
     ArbolBinario<string> occurenceOrder;
@@ -297,6 +319,10 @@ void occurrenceOrderLimit(char *file, int cantidad)
     }
 }
 
+/**
+ * Elimina los signos de puntuación y mayúsculas de una cadena de caracteres pasada por referencia
+ * @param a string con caracteres a eliminar
+ */
 void deletePunctuation(string &a)
 {
     unsigned int len = a.size();
@@ -314,6 +340,10 @@ void deletePunctuation(string &a)
 
 }
 
+/**
+ * Función de Hash que determina la posición dentro de la tabla de un string
+ * @param word dato que determina la posición dentro del hash
+ */
 unsigned int hashfunc (string word)
 {
     unsigned int key = 1;
