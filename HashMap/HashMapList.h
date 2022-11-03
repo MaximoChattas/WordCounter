@@ -21,9 +21,11 @@ public:
 
   explicit HashMapList(unsigned int tamanio, unsigned int (*fp)(K clave));
 
-  T get(K clave);
+  HashEntry<K , T> get(K clave);
 
   void put(K clave, T valor);
+
+  void putOcurrencias(K clave, T valor);
 
   void remove(K clave);
 
@@ -70,7 +72,7 @@ template <class K, class T> HashMapList<K, T>::~HashMapList()
     }
 }
 
-template <class K, class T> T HashMapList<K, T>::get(K clave)
+template <class K, class T> HashEntry<K , T> HashMapList<K, T>::get(K clave)
 {
     unsigned int pos = hashFuncP(clave) % tamanio;
 
@@ -85,7 +87,7 @@ template <class K, class T> T HashMapList<K, T>::get(K clave)
     {
         if (auxNodo->getDato().getClave() == clave)
         {
-            return auxNodo->getDato().getValor();
+            return auxNodo->getDato();
         }
         auxNodo = auxNodo->getSiguiente();
     }
@@ -111,6 +113,38 @@ template <class K, class T> void HashMapList<K, T>::put(K clave, T valor)
             if (auxNodo->getDato().getValor() == valor)
             {
                 throw std::invalid_argument("El dato ya se encuentra en la funcion de Hash\n");
+            }
+            auxNodo = auxNodo->getSiguiente();
+        }
+    }
+
+    tabla[pos]->insertarUltimo(HashEntry<K , T>(clave , valor));
+
+}
+
+template <class K, class T> void HashMapList<K, T>::putOcurrencias(K clave, T valor)
+{
+    unsigned int pos = hashFuncP(clave) % tamanio;
+
+    if (tabla[pos] == NULL)
+    {
+        tabla[pos] = new Lista<HashEntry<K , T> >;
+    }
+
+    else
+    {
+        Nodo<HashEntry<K , T> > *auxNodo = tabla[pos]->getInicio();
+
+        while (auxNodo != nullptr)
+        {
+            if (auxNodo->getDato().getValor() == valor)
+            {
+                HashEntry<K , T> auxHash;
+                auxHash.setClave(auxNodo->getDato().getClave());
+                auxHash.setValor(auxNodo->getDato().getValor());
+                auxHash.setOcurrencias(auxNodo->getDato().getOcurrencias()+1);
+                auxNodo->setDato(auxHash);
+                return;
             }
             auxNodo = auxNodo->getSiguiente();
         }

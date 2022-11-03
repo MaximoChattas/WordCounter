@@ -7,9 +7,7 @@ private:
     T valor;
     int ocurrencias;
 public:
-    HashEntry(){
-
-    }
+    HashEntry(){}
 
     HashEntry(K clave , T valor)
     {
@@ -36,6 +34,16 @@ public:
     void setValor(T valor)
     {
         this->valor = valor;
+    }
+
+    int getOcurrencias()
+    {
+        return ocurrencias;
+    }
+
+    void setOcurrencias(int ocurrencias)
+    {
+        this->ocurrencias = ocurrencias;
     }
 };
 

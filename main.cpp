@@ -11,9 +11,17 @@ using namespace std;
 //Para Excluir palabras intentar tree.remove()
 
 void deletePunctuation(string &a);
+
 void counter(char* file);
+
 void alphabeticalOrder(char* file);
+
 void alphabeticalOrderLimit(char* file , int cantidad);
+
+void occurrenceOrder(char* file);
+
+void occurrenceOrderLimit(char* file , int cantidad);
+
 unsigned int hashfunc (string word);
 
 int main(int argc , char* argv[]) {
@@ -33,6 +41,8 @@ int main(int argc , char* argv[]) {
     if (argc == 3)
     {
         if(strcmp(argv[2] , "-palabras") == 0) alphabeticalOrder(argv[1]);
+
+        if(strcmp(argv[2] , "-ocurrencias") == 0) occurrenceOrder(argv[1]);
     }
 
     if (argc == 4)
@@ -56,6 +66,27 @@ int main(int argc , char* argv[]) {
                 }
             }
         }
+
+        if(strcmp(argv[2] , "-ocurrencias") == 0)
+        {
+            if(strcmp(argv[3] , "0") == 0) occurrenceOrder(argv[1]); //Mostrar Todas las palabras
+
+            else
+            {
+                std::istringstream iss( argv[3] ); //Convertir de String a Int para poder utilizarlo
+                int val;
+
+                if (iss >> val)
+                {
+                    occurrenceOrderLimit(argv[1] , val);
+                }
+                else
+                {
+                    cout << "Ingrese un Argumento Valido (ver instrucciones)\n";
+                }
+            }
+        }
+
     }
 
     clock_t end = clock();
@@ -68,25 +99,26 @@ int main(int argc , char* argv[]) {
 
 void counter(char* file)
 {
-    HashMapList<string , string> hash(100, hashfunc);
+    HashMapList<string , string> hash(10000, hashfunc);
     //Implementar Funcion Hash para determinar cantidad de palabras diferentes.
 
     std::ifstream archivo; //Archivo de Texto a Leer
 
     std::string auxLinea , auxWord; //Linea de texto a analizar
 
-    int lineas = 0 , caracteres = 0 , palabras = 0 , palabrasDiferentes = 0; //Counters
+    int lineas = 0 , caracteresyEspacios = 0 , caracteres = 0 , palabras = 0 , palabrasDiferentes = 0; //Counters
 
     archivo.open(file);
 
     if(archivo.is_open())
     {
         //Recorrido palabra a palabra
-        //Se realiza el conteo total de palabras y palabras diferentes
+        //Se realiza el conteo total de palabras, palabras diferentes y caracteresyEspacios sin espacios y sin puntuación
         while (archivo >> auxWord)
         {
             palabras++;
             deletePunctuation(auxWord);
+            caracteres+= auxWord.size();
             try
             {
                 hash.put(auxWord , auxWord);
@@ -103,18 +135,19 @@ void counter(char* file)
         archivo.seekg(0 , ios::beg);
 
         //Recorrido linea por linea
-        //Se realiza el conteo de lineas y caracteres totales
+        //Se realiza el conteo de lineas y caracteresyEspacios totales
         while (archivo.peek() != EOF)
         {
             std::getline(archivo , auxLinea); //Se obtiene la linea
             lineas++;
-            caracteres += auxLinea.size();
+            caracteresyEspacios += auxLinea.size();
         }
 
         std::cout << "Lineas: " << lineas << '\n';
         std::cout << "Palabras: " << palabras << '\n';
         std::cout << "Palabras Diferentes: " << palabrasDiferentes << '\n';
-        std::cout << "Caracteres: " << caracteres << '\n';
+        std::cout << "Caracteres con Espacios: " << caracteresyEspacios << '\n';
+        std::cout << "Caracteres sin Espacios: " << caracteres << '\n';
 
     }
     else
@@ -165,7 +198,6 @@ void alphabeticalOrderLimit (char* file , int cantidad)
             deletePunctuation(auxString);
 
             alphOrder.put(auxString);
-
         }
 
         try
@@ -181,6 +213,88 @@ void alphabeticalOrderLimit (char* file , int cantidad)
         throw std::invalid_argument("ERROR: El archivo no fue encontrado\n");
     }
 
+}
+
+void occurrenceOrder(char *file)
+{
+    ArbolBinario<string> occurenceOrder;
+    HashMapList<string , string> hash(10000, hashfunc);
+    std::ifstream textFile; //Text File to Read
+    std::string auxString;
+
+    textFile.open(file);
+
+    if(textFile.is_open())
+    {
+        //Se recorre el texto, se ingresan las palabras en una tabla Hash para obtener las ocurrencias de cada una
+        while (textFile >> auxString)
+        {
+            deletePunctuation(auxString);
+
+            hash.putOcurrencias(auxString , auxString);
+        }
+
+        textFile.clear();
+        textFile.seekg(0 , ios::beg);
+
+        //Se recorre nuevamente el texto, se ingresan las palabras en un árbol ordenadas por ocurrencias
+        while (textFile >> auxString)
+        {
+            deletePunctuation(auxString);
+            HashEntry<string , string> auxEntry = hash.get(auxString);
+
+            string data = auxEntry.getValor();
+            int ocurrencia = auxEntry.getOcurrencias();
+
+            occurenceOrder.putOcurrencias(data , ocurrencia);
+        }
+
+        occurenceOrder.inorder();
+    }
+
+}
+
+void occurrenceOrderLimit(char *file, int cantidad)
+{
+    ArbolBinario<string> occurenceOrder;
+    HashMapList<string , string> hash(10000, hashfunc);
+    std::ifstream textFile; //Text File to Read
+    std::string auxString;
+
+    textFile.open(file);
+
+    if(textFile.is_open())
+    {
+        //Se recorre el texto, se ingresan las palabras en una tabla Hash para obtener las ocurrencias de cada una
+        while (textFile >> auxString)
+        {
+            deletePunctuation(auxString);
+
+            hash.putOcurrencias(auxString , auxString);
+        }
+
+        textFile.clear();
+        textFile.seekg(0 , ios::beg);
+
+        //Se recorre nuevamente el texto, se ingresan las palabras en un árbol ordenadas por ocurrencias
+        while (textFile >> auxString)
+        {
+            deletePunctuation(auxString);
+            HashEntry<string , string> auxEntry = hash.get(auxString);
+
+            string data = auxEntry.getValor();
+            int ocurrencia = auxEntry.getOcurrencias();
+
+            occurenceOrder.putOcurrencias(data , ocurrencia);
+        }
+
+        try
+        {
+            occurenceOrder.inOrderLimit(cantidad);
+            std::cout << "No hay la cantidad suficiente de palabras para mostrar\n";
+        }
+        catch (std::invalid_argument &Error){}
+    }
 }
 
 void deletePunctuation(string &a)

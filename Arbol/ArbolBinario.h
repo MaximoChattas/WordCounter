@@ -14,6 +14,8 @@ private:
 
     NodoArbol<T> * put(T dato , NodoArbol<T> *r);
 
+    NodoArbol<T> * putOcurrencias(T dato , int ocurrencias , NodoArbol<T> *r);
+
     NodoArbol<T> * remove(T dato , NodoArbol<T> *r);
 
     NodoArbol<T> * findMaxAndRemove(NodoArbol<T> *r , bool *found);
@@ -32,6 +34,8 @@ public:
     ArbolBinario();
 
     void put(T dato);
+
+    void putOcurrencias(T dato , int ocurrencias);
 
     T search(T dato);
 
@@ -140,6 +144,46 @@ NodoArbol<T> * ArbolBinario<T>::put(T dato, NodoArbol<T> *r)
     else if (dato < r->getData())
     {
         r->setLeft(put(dato , r->getLeft()));
+    }
+
+    return r;
+}
+
+template<class T>
+void ArbolBinario<T>::putOcurrencias(T dato, int ocurrencias)
+{
+    root = putOcurrencias(dato , ocurrencias , root);
+}
+
+template<class T>
+NodoArbol<T> * ArbolBinario<T>::putOcurrencias(T dato, int ocurrencias, NodoArbol<T> *r)
+{
+    if (r == nullptr)
+    {
+        return new NodoArbol<T>(dato , ocurrencias);
+    }
+
+    if (ocurrencias < r->getOcurrencia())
+    {
+        r->setRight(putOcurrencias(dato , ocurrencias , r->getRight()));
+    }
+
+    else if (ocurrencias > r->getOcurrencia())
+    {
+        r->setLeft(putOcurrencias(dato , ocurrencias , r->getLeft()));
+    }
+
+    else
+    {
+        if(dato < r->getData())
+        {
+            r->setLeft(putOcurrencias(dato , ocurrencias , r->getLeft()));
+        }
+        else if (dato > r->getData())
+        {
+            r->setRight(putOcurrencias(dato , ocurrencias , r->getRight()));
+        }
+
     }
 
     return r;
