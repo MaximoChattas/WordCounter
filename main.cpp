@@ -10,8 +10,6 @@ using namespace std;
 
 //Para Excluir palabras intentar tree.remove()
 
-void deletePunctuation(string &a);
-
 void counter(char* file);
 
 void alphabeticalOrder(char* file);
@@ -22,6 +20,10 @@ void occurrenceOrder(char* file);
 
 void occurrenceOrderLimit(char* file , int cantidad);
 
+void mostrar(char* file , char* words);
+
+void deletePunctuation(string &a);
+
 unsigned int hashfunc (string word);
 
 
@@ -31,6 +33,7 @@ int main(int argc , char* argv[]) {
     cout << "Comenzando a medir Tiempo\n" << endl;
 
     begin = clock();
+
     /*
      * Insertar código a medir tiempo aquí
      */
@@ -39,14 +42,16 @@ int main(int argc , char* argv[]) {
         counter(argv[1]);
     }
 
-    if (argc == 3)
+    else if (argc == 3)
     {
         if(strcmp(argv[2] , "-palabras") == 0) alphabeticalOrder(argv[1]);
 
-        if(strcmp(argv[2] , "-ocurrencias") == 0) occurrenceOrder(argv[1]);
+        else if(strcmp(argv[2] , "-ocurrencias") == 0) occurrenceOrder(argv[1]);
+
+        else cout << "Ingrese un Argumento Valido (ver instrucciones)\n";
     }
 
-    if (argc == 4)
+    else if (argc == 4)
     {
         if(strcmp(argv[2] , "-palabras") == 0)
         {
@@ -68,7 +73,7 @@ int main(int argc , char* argv[]) {
             }
         }
 
-        if(strcmp(argv[2] , "-ocurrencias") == 0)
+        else if(strcmp(argv[2] , "-ocurrencias") == 0)
         {
             if(strcmp(argv[3] , "0") == 0) occurrenceOrder(argv[1]); //Mostrar Todas las palabras
 
@@ -87,6 +92,13 @@ int main(int argc , char* argv[]) {
                 }
             }
         }
+
+        else if (strcmp(argv[2] , "-mostrar") == 0)
+        {
+            mostrar(argv[1] , argv[3]);
+        }
+
+        else cout << "Ingrese un Argumento Valido (ver instrucciones)\n";
 
     }
 
@@ -255,6 +267,7 @@ void occurrenceOrder(char *file)
         textFile.clear();
         textFile.seekg(0 , ios::beg);
 
+        //CAMBIAR POR FUNC. DENTRO DE HASH
         //Se recorre nuevamente el texto, se ingresan las palabras en un árbol ordenadas por ocurrencias
         while (textFile >> auxString)
         {
@@ -268,6 +281,10 @@ void occurrenceOrder(char *file)
         }
 
         occurenceOrder.inorder();
+    }
+    else
+    {
+        throw std::invalid_argument("ERROR: El archivo no fue encontrado\n");
     }
 }
 
@@ -317,6 +334,10 @@ void occurrenceOrderLimit(char *file, int cantidad)
         }
         catch (std::invalid_argument &Error){}
     }
+    else
+    {
+        throw std::invalid_argument("ERROR: El archivo no fue encontrado\n");
+    }
 }
 
 /**
@@ -353,4 +374,56 @@ unsigned int hashfunc (string word)
         key *= word[i];
     }
     return key % 100;
+}
+
+void mostrar(char *file, char *words)
+{
+    ArbolBinario<string> occurenceOrder;
+    HashMapList<string , string> hash(10000, hashfunc);
+    std::ifstream textFile; //Text File to Read
+    std::string auxString;
+
+    textFile.open(file);
+
+    if(textFile.is_open())
+    {
+        //Se recorre el texto, se ingresan las palabras en una tabla Hash para obtener las ocurrencias de cada una
+        while (textFile >> auxString)
+        {
+            deletePunctuation(auxString);
+
+            hash.putOcurrencias(auxString, auxString);
+        }
+
+        int size = strlen(words);
+        for (int i = 0 ; i < size ; i++)
+        {
+            string word;
+            while(words[i] != ' ' && words[i] != '\0')
+            {
+                word+= words[i]; //Se obtiene cada una de las palabras
+                i++;
+            }
+            deletePunctuation(word);
+
+            try
+            {
+                //Se obtiene la cantidad de ocurrencias de esa palabra y se ingresa en un arbol
+                HashEntry<string , string> toTree = hash.get(word);
+                int ocurrencias = toTree.getOcurrencias();
+                occurenceOrder.putOcurrencias(word , ocurrencias);
+            }
+            catch (std::invalid_argument &ERROR)
+            {
+                std::cout << word << " no se encuentra en el texto\n";
+            }
+        }
+
+        occurenceOrder.inorder();
+
+    }
+    else
+    {
+        throw std::invalid_argument("ERROR: El archivo no fue encontrado\n");
+    }
 }
