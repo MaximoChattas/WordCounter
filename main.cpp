@@ -10,24 +10,28 @@ using namespace std;
 
 //Para Excluir palabras intentar tree.remove()
 
-void counter(char* file);
+void counter(char *file);
 
-void alphabeticalOrder(char* file);
+void alphabeticalOrder(char *file);
 
-void alphabeticalOrderLimit(char* file , int cantidad);
+void alphabeticalOrderLimit(char *file , int cantidad);
 
-void occurrenceOrder(char* file);
+void alphabeticalOrderIgnore(char *file , char *toignore);
 
-void occurrenceOrderLimit(char* file , int cantidad);
+void occurrenceOrder(char *file);
 
-void mostrar(char* file , char* words);
+void occurrenceOrderLimit(char *file , int cantidad);
+
+void occurrenceOrderIgnore(char *file , char *toignore);
+
+void mostrar(char *file , char *words);
 
 void deletePunctuation(string &a);
 
 unsigned int hashfunc (string word);
 
 
-int main(int argc , char* argv[]) {
+int main(int argc , char *argv[]) {
     clock_t begin;
 
     cout << "Comenzando a medir Tiempo\n" << endl;
@@ -102,6 +106,23 @@ int main(int argc , char* argv[]) {
 
     }
 
+    else if (argc == 5)
+    {
+        if(strcmp(argv[2] , "-palabras") == 0)
+        {
+            if(strcmp(argv[3] , "-excluir") == 0) alphabeticalOrderIgnore(argv[1] , argv[4]); //Mostrar Todas las palabras
+
+        }
+
+        else if(strcmp(argv[2] , "-ocurrencias") == 0)
+        {
+            if(strcmp(argv[3] , "-excluir") == 0) occurrenceOrderIgnore(argv[1] , argv[4]);
+        }
+
+        else cout << "Ingrese un Argumento Valido (ver instrucciones)\n";
+
+    }
+
     clock_t end = clock();
 
     double elapsed_secs = static_cast<double>(end - begin) / CLOCKS_PER_SEC;
@@ -114,7 +135,7 @@ int main(int argc , char* argv[]) {
  * Contador de Letras, Caracteres, Lineas, Palabras y Palabras Diferentes
  * @param file cadena de caracteres que contiene el nombre del archivo a leer
  */
-void counter(char* file)
+void counter(char *file)
 {
     HashMapList<string , string> hash(10000, hashfunc);
     //Implementar Funcion Hash para determinar cantidad de palabras diferentes.
@@ -178,7 +199,7 @@ void counter(char* file)
  * Muestra todas las palabras del texto en orden alfabético
  * @param file cadena de caracteres que contiene el nombre del archivo a leer
  */
-void alphabeticalOrder (char* file)
+void alphabeticalOrder (char *file)
 {
     ArbolBinario<string> alphOrder;
     std::ifstream textFile;
@@ -209,7 +230,7 @@ void alphabeticalOrder (char* file)
  * @param file cadena de caracteres que contiene el nombre del archivo a leer
  * @param cantidad cantidad de palabras a mostrar en orden alfabético
  */
-void alphabeticalOrderLimit (char* file , int cantidad)
+void alphabeticalOrderLimit (char *file , int cantidad)
 {
     ArbolBinario<string> alphOrder;
     std::ifstream textFile; //Text File to Read
@@ -233,6 +254,56 @@ void alphabeticalOrderLimit (char* file , int cantidad)
         }
         catch (std::invalid_argument &Error){}
 
+    }
+    else
+    {
+        throw std::invalid_argument("ERROR: El archivo no fue encontrado\n");
+    }
+
+}
+
+/**
+ * Muestra todas las palabras del texto en orden alfabético excepto las palabras indicadas que deben ser excluidas
+ * @param file cadena de caracteres que contiene el nombre del archivo a leer
+ */
+void alphabeticalOrderIgnore (char *file , char* toignore)
+{
+    ArbolBinario<string> alphOrder;
+    std::ifstream textFile;
+    std::string auxString;
+
+    textFile.open(file);
+
+    if(textFile.is_open())
+    {
+        while (textFile >> auxString)
+        {
+            deletePunctuation(auxString);
+
+            alphOrder.put(auxString);
+
+        }
+
+        int size = strlen(toignore);
+        for (int i = 0 ; i < size ; i++)
+        {
+            string word;
+            while(toignore[i] != ' ' && toignore[i] != '\0')
+            {
+                word+= toignore[i]; //Se obtiene cada una de las palabras
+                i++;
+            }
+            deletePunctuation(word);
+
+            try
+            {
+                //Se elimina la palabra del arbol
+                alphOrder.remove(word);
+            }
+            catch (std::invalid_argument &ERROR){}
+        }
+
+        alphOrder.inorder();
     }
     else
     {
@@ -341,41 +412,77 @@ void occurrenceOrderLimit(char *file, int cantidad)
 }
 
 /**
- * Elimina los signos de puntuación y mayúsculas de una cadena de caracteres pasada por referencia
- * @param a string con caracteres a eliminar
+ * Muestra todas las palabras del texto ordenadas descendientemente según la cantidad de veces que aparece excepto
+ * las palabras indicadas que deben ser excluidas
+ * @param file cadena de caracteres que contiene el nombre del archivo a leer
  */
-void deletePunctuation(string &a)
+void occurrenceOrderIgnore(char *file , char *toignore)
 {
-    unsigned int len = a.size();
+    ArbolBinario<string> occurenceOrder;
+    HashMapList<string , string> hash(10000, hashfunc);
+    std::ifstream textFile; //Text File to Read
+    std::string auxString;
 
-    for (unsigned int i = 0 ; i < len; i++)
+    textFile.open(file);
+
+    if(textFile.is_open())
     {
-        if (a[i] >= 'A' && a[i] <= 'Z') a[i]+=32; //Minuscula
-
-        else if (ispunct(a[i])) //Puntuacion
+        //Se recorre el texto, se ingresan las palabras en una tabla Hash para obtener las ocurrencias de cada una
+        while (textFile >> auxString)
         {
-            a.erase(i--, 1);
-            len = a.size();
-        }
-    }
+            deletePunctuation(auxString);
 
+            hash.putOcurrencias(auxString , auxString);
+        }
+
+        textFile.clear();
+        textFile.seekg(0 , ios::beg);
+
+        //CAMBIAR POR FUNC. DENTRO DE HASH
+        //Se recorre nuevamente el texto, se ingresan las palabras en un árbol ordenadas por ocurrencias
+        while (textFile >> auxString)
+        {
+            deletePunctuation(auxString);
+            HashEntry<string , string> auxEntry = hash.get(auxString);
+
+            string data = auxEntry.getValor();
+            int ocurrencia = auxEntry.getOcurrencias();
+
+            occurenceOrder.putOcurrencias(data , ocurrencia);
+        }
+
+        int size = strlen(toignore);
+        for (int i = 0 ; i < size ; i++)
+        {
+            string word;
+            while(toignore[i] != ' ' && toignore[i] != '\0')
+            {
+                word+= toignore[i]; //Se obtiene cada una de las palabras
+                i++;
+            }
+            deletePunctuation(word);
+
+            try
+            {
+                //Se elimina la palabra del arbol
+                occurenceOrder.remove(word);
+            }
+            catch (std::invalid_argument &ERROR){}
+        }
+
+        occurenceOrder.inorder();
+    }
+    else
+    {
+        throw std::invalid_argument("ERROR: El archivo no fue encontrado\n");
+    }
 }
 
 /**
- * Función de Hash que determina la posición dentro de la tabla de un string
- * @param word dato que determina la posición dentro del hash
+ * Muestra las palabras indicadas ordenadas por ocurrencia
+ * @param file cadena de caracteres que contiene el nombre del archivo a leer
+ * @param words cadena de caracteres con las palabras a mostrar
  */
-unsigned int hashfunc (string word)
-{
-    unsigned int key = 1;
-
-    for (int i = 0 ; i < word.size() ; i++)
-    {
-        key *= word[i];
-    }
-    return key % 100;
-}
-
 void mostrar(char *file, char *words)
 {
     ArbolBinario<string> occurenceOrder;
@@ -426,4 +533,40 @@ void mostrar(char *file, char *words)
     {
         throw std::invalid_argument("ERROR: El archivo no fue encontrado\n");
     }
+}
+
+/**
+ * Elimina los signos de puntuación y mayúsculas de una cadena de caracteres pasada por referencia
+ * @param a string con caracteres a eliminar
+ */
+void deletePunctuation(string &a)
+{
+    unsigned int len = a.size();
+
+    for (unsigned int i = 0 ; i < len; i++)
+    {
+        if (a[i] >= 'A' && a[i] <= 'Z') a[i]+=32; //Minuscula
+
+        else if (ispunct(a[i])) //Puntuacion
+        {
+            a.erase(i--, 1);
+            len = a.size();
+        }
+    }
+
+}
+
+/**
+ * Función de Hash que determina la posición dentro de la tabla de un string
+ * @param word dato que determina la posición dentro del hash
+ */
+unsigned int hashfunc (string word)
+{
+    unsigned int key = 1;
+
+    for (int i = 0 ; i < word.size() ; i++)
+    {
+        key *= word[i];
+    }
+    return key % 10000;
 }
