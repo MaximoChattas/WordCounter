@@ -464,8 +464,9 @@ void occurrenceOrderIgnore(char *file , char *toignore)
 
             try
             {
+                int ocurrencias = hash.get(word).getOcurrencias();
                 //Se elimina la palabra del arbol
-                occurenceOrder.remove(word);
+                occurenceOrder.removeOcurrencias(word , ocurrencias);
             }
             catch (std::invalid_argument &ERROR){}
         }

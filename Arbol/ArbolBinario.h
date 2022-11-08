@@ -18,6 +18,8 @@ private:
 
     NodoArbol<T> * remove(T dato , NodoArbol<T> *r);
 
+    NodoArbol<T> *removeOcurrencias(T dato, int ocurrencias, NodoArbol<T> *r);
+
     NodoArbol<T> * findMaxAndRemove(NodoArbol<T> *r , bool *found);
 
     void preOrder(NodoArbol<T> *r);
@@ -40,6 +42,8 @@ public:
     T search(T dato);
 
     void remove(T dato);
+
+    void removeOcurrencias(T dato, int ocurrencias);
 
     void preorder();
 
@@ -258,6 +262,83 @@ NodoArbol<T> * ArbolBinario<T>::remove(T dato , NodoArbol<T> *r)
         else
         {
             r->setRight(remove(dato , r->getRight()));
+        }
+    }
+
+    return r;
+}
+
+template<class T>
+void ArbolBinario<T>::removeOcurrencias(T dato, int ocurrencias)
+{
+    root = removeOcurrencias(dato, ocurrencias , root);
+}
+
+template<class T>
+NodoArbol<T> * ArbolBinario<T>::removeOcurrencias(T dato, int ocurrencias, NodoArbol<T> *r)
+{
+    NodoArbol<T> *auxNodo;
+
+    if(r == nullptr)
+    {
+        throw std::invalid_argument("El dato no existe\n");
+    }
+
+    if(r->getData() == dato)
+    {
+        if(r->getLeft() == nullptr && r->getRight() == nullptr) //Nodo Hoja (sin hijos)
+        {
+            delete r;
+            return nullptr;
+        }
+
+        if(r->getLeft() == nullptr && r->getRight() != nullptr) //Nodo tiene un hijo a la derecha
+        {
+            auxNodo = r->getRight();
+            delete r;
+            return auxNodo;
+        }
+
+        if(r->getLeft() != nullptr && r->getRight() == nullptr) //Nodo tiene un hijo a la izquierda
+        {
+            auxNodo = r->getLeft();
+            delete r;
+            return auxNodo;
+        }
+
+        if(r->getLeft() != nullptr && r->getRight() != nullptr) //Nodo tiene hijos a ambos lados
+        {
+            if(r->getLeft()->getRight() != nullptr) //Hay algo a la derecha del nodo izquierdo (mínimo del máximo)
+            {
+                bool found;
+                auxNodo = findMaxAndRemove(r->getLeft() , &found);
+                auxNodo->setRight(r->getRight());
+                auxNodo->setLeft(r->getLeft());
+            }
+            else
+            {
+                auxNodo = r->getLeft();
+                auxNodo->setRight(r->getRight());
+            }
+            delete r;
+            return auxNodo;
+        }
+    }
+
+    else
+    {
+        if(r->getOcurrencia() < ocurrencias)
+        {
+            r->setLeft(removeOcurrencias(dato , ocurrencias , r->getLeft()));
+        }
+        else if(r->getOcurrencia() > ocurrencias)
+        {
+            r->setRight(removeOcurrencias(dato , ocurrencias , r->getRight()));
+        }
+        else
+        {
+            if(r->getData() > dato) r->setLeft(removeOcurrencias(dato , ocurrencias , r->getLeft()));
+            else r->setRight(removeOcurrencias(dato , ocurrencias , r->getRight()));
         }
     }
 
