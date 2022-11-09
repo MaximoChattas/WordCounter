@@ -43,6 +43,8 @@ public:
 
   void insertAfterN (double oldValue , double newValue , int n);
 
+  bool buscar(T dato);
+
   Nodo<T>* getInicio();
 };
 
@@ -367,6 +369,24 @@ void Lista<T>::insertAfterN(double oldValue, double newValue, int n)
 template<class T>
 Nodo<T> *Lista<T>::getInicio() {
     return inicio;
+}
+
+template<class T>
+bool Lista<T>::buscar(T dato)
+{
+    Nodo<T> *auxNodo = inicio;
+
+    if (esVacia())
+    {
+        return false;
+    }
+
+    while(auxNodo != nullptr)
+    {
+        if(auxNodo->getDato() == dato) return true;
+        auxNodo = auxNodo->getSiguiente();
+    }
+    return false;
 }
 
 #endif // U02_LISTAS_LISTA_LISTA_H_

@@ -8,8 +8,6 @@
 
 using namespace std;
 
-//Para Excluir palabras intentar tree.remove()
-
 void counter(char *file);
 
 void alphabeticalOrder(char *file);
@@ -18,11 +16,15 @@ void alphabeticalOrderLimit(char *file , int cantidad);
 
 void alphabeticalOrderIgnore(char *file , char *toignore);
 
+void alphabeticalOrderIgnoreFile(char *file , char *filetoignore);
+
 void occurrenceOrder(char *file);
 
 void occurrenceOrderLimit(char *file , int cantidad);
 
 void occurrenceOrderIgnore(char *file , char *toignore);
+
+void occurrenceOrderIgnoreFile(char *file , char *filetoignore);
 
 void mostrar(char *file , char *words);
 
@@ -110,13 +112,19 @@ int main(int argc , char *argv[]) {
     {
         if(strcmp(argv[2] , "-palabras") == 0)
         {
-            if(strcmp(argv[3] , "-excluir") == 0) alphabeticalOrderIgnore(argv[1] , argv[4]); //Mostrar Todas las palabras
+            if(strcmp(argv[3] , "-excluir") == 0) alphabeticalOrderIgnore(argv[1] , argv[4]);
+
+            else if(strcmp(argv[3] , "-excluirf") == 0) alphabeticalOrderIgnoreFile(argv[1] , argv[4]);
+
+            else cout << "Ingrese un Argumento Valido (ver instrucciones)\n";
+
 
         }
 
         else if(strcmp(argv[2] , "-ocurrencias") == 0)
         {
             if(strcmp(argv[3] , "-excluir") == 0) occurrenceOrderIgnore(argv[1] , argv[4]);
+            else if(strcmp(argv[3] , "-excluirf") == 0) occurrenceOrderIgnoreFile(argv[1] , argv[4]);
         }
 
         else cout << "Ingrese un Argumento Valido (ver instrucciones)\n";
@@ -265,6 +273,7 @@ void alphabeticalOrderLimit (char *file , int cantidad)
 /**
  * Muestra todas las palabras del texto en orden alfabético excepto las palabras indicadas que deben ser excluidas
  * @param file cadena de caracteres que contiene el nombre del archivo a leer
+ * @param toignore cadena de caracteres que contiene las palabras a ignorar
  */
 void alphabeticalOrderIgnore (char *file , char* toignore)
 {
@@ -304,6 +313,52 @@ void alphabeticalOrderIgnore (char *file , char* toignore)
         }
 
         alphOrder.inorder();
+    }
+    else
+    {
+        throw std::invalid_argument("ERROR: El archivo no fue encontrado\n");
+    }
+
+}
+
+/**
+ * Muestra todas las palabras del texto en orden alfabético excepto las palabras en el segundo archivo de texto
+ * @param file cadena de caracteres que contiene el nombre del archivo a leer
+ * @param filetoignore cadena de caracteres que contiene el nombre del archivo con las palabras a ignorar
+ */
+void alphabeticalOrderIgnoreFile(char *file, char *filetoignore)
+{
+    ArbolBinario<string> alphOrder;
+    std::ifstream textFile;
+    std::ifstream ignoreFile;
+    std::string auxString;
+
+    textFile.open(file);
+    ignoreFile.open(filetoignore);
+
+    if(textFile.is_open())
+    {
+        if(ignoreFile.is_open())
+        {
+            while (textFile >> auxString)
+            {
+                deletePunctuation(auxString);
+
+                alphOrder.put(auxString);
+            }
+
+            while (ignoreFile >> auxString)
+            {
+                deletePunctuation(auxString);
+
+                try
+                {
+                    alphOrder.remove(auxString);
+                }
+                catch (std::invalid_argument &Error){}
+            }
+            alphOrder.inorder();
+        }
     }
     else
     {
@@ -415,6 +470,7 @@ void occurrenceOrderLimit(char *file, int cantidad)
  * Muestra todas las palabras del texto ordenadas descendientemente según la cantidad de veces que aparece excepto
  * las palabras indicadas que deben ser excluidas
  * @param file cadena de caracteres que contiene el nombre del archivo a leer
+ * @param toignore cadena de caracteres que contiene las palabras a ignorar
  */
 void occurrenceOrderIgnore(char *file , char *toignore)
 {
@@ -570,4 +626,66 @@ unsigned int hashfunc (string word)
         key *= word[i];
     }
     return key % 10000;
+}
+
+void occurrenceOrderIgnoreFile(char *file, char *filetoignore)
+{
+    ArbolBinario<string> occurenceOrder;
+    HashMapList<string , string> hash(10000, hashfunc);
+    std::ifstream textFile; //Text File to Read
+    std::ifstream ignoreFile;
+    std::string auxString;
+
+    textFile.open(file);
+    ignoreFile.open(filetoignore);
+
+    if(textFile.is_open())
+    {
+       if(ignoreFile.is_open())
+       {
+           //Se ingresan todas las palabras a ignorar en una lista
+           Lista<string> palabrasAIgnorar;
+           while(ignoreFile >> auxString)
+           {
+               deletePunctuation(auxString);
+               palabrasAIgnorar.insertarUltimo(auxString);
+           }
+
+           //Se recorre el texto, se ingresan las palabras en una tabla Hash para obtener las ocurrencias de cada una
+           while (textFile >> auxString)
+           {
+               deletePunctuation(auxString);
+
+               //Si la palabra se encuentra en la lista a ignorar, no se ingresa en el hash
+               if(!palabrasAIgnorar.buscar(auxString))
+               {
+                   hash.putOcurrencias(auxString, auxString);
+               }
+           }
+
+           textFile.clear();
+           textFile.seekg(0, ios::beg);
+
+           //CAMBIAR POR FUNC. DENTRO DE HASH
+           //Se recorre nuevamente el texto, se ingresan las palabras en un árbol ordenadas por ocurrencias
+           while (textFile >> auxString)
+           {
+               deletePunctuation(auxString);
+
+               try
+               {
+                   HashEntry<string, string> auxEntry = hash.get(auxString);
+                   string data = auxEntry.getValor();
+                   int ocurrencia = auxEntry.getOcurrencias();
+
+                   occurenceOrder.putOcurrencias(data, ocurrencia);
+               } catch (std::invalid_argument &Error){}
+
+           }
+
+           occurenceOrder.inorder();
+       }
+    }
+
+
 }
