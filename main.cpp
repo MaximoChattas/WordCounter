@@ -45,14 +45,41 @@ int main(int argc , char *argv[]) {
      */
     if (argc == 2)
     {
-        counter(argv[1]);
+        try
+        {
+            counter(argv[1]);
+        }
+        catch(std::invalid_argument &Error)
+        {
+            std::cout << Error.what();
+        }
     }
 
     else if (argc == 3)
     {
-        if(strcmp(argv[2] , "-palabras") == 0) alphabeticalOrder(argv[1]);
+        if(strcmp(argv[2] , "-palabras") == 0)
+        {
+            try
+            {
+                alphabeticalOrder(argv[1]);
+            }
+            catch(std::invalid_argument &Error)
+            {
+                std::cout << Error.what();
+            }
+        }
 
-        else if(strcmp(argv[2] , "-ocurrencias") == 0) occurrenceOrder(argv[1]);
+        else if(strcmp(argv[2] , "-ocurrencias") == 0)
+        {
+            try
+            {
+                occurrenceOrder(argv[1]);
+            }
+            catch(std::invalid_argument &Error)
+            {
+                std::cout << Error.what();
+            }
+        }
 
         else cout << "Ingrese un Argumento Valido (ver instrucciones)\n";
     }
@@ -61,7 +88,17 @@ int main(int argc , char *argv[]) {
     {
         if(strcmp(argv[2] , "-palabras") == 0)
         {
-            if(strcmp(argv[3] , "0") == 0) alphabeticalOrder(argv[1]); //Mostrar Todas las palabras
+            if(strcmp(argv[3] , "0") == 0)
+            {
+                try
+                {
+                    alphabeticalOrder(argv[1]); //Mostrar Todas las palabras
+                }
+                catch(std::invalid_argument &Error)
+                {
+                    std::cout << Error.what();
+                }
+            }
 
             else
             {
@@ -70,7 +107,14 @@ int main(int argc , char *argv[]) {
 
                 if (iss >> val)
                 {
-                    alphabeticalOrderLimit(argv[1] , val);
+                    try
+                    {
+                        alphabeticalOrderLimit(argv[1] , val);
+                    }
+                    catch(std::invalid_argument &Error)
+                    {
+                        std::cout << Error.what();
+                    }
                 }
                 else
                 {
@@ -81,7 +125,17 @@ int main(int argc , char *argv[]) {
 
         else if(strcmp(argv[2] , "-ocurrencias") == 0)
         {
-            if(strcmp(argv[3] , "0") == 0) occurrenceOrder(argv[1]); //Mostrar Todas las palabras
+            if(strcmp(argv[3] , "0") == 0)
+            {
+                try
+                {
+                    occurrenceOrder(argv[1]); //Mostrar Todas las palabras
+                }
+                catch(std::invalid_argument &Error)
+                {
+                    std::cout << Error.what();
+                }
+            }
 
             else
             {
@@ -90,7 +144,14 @@ int main(int argc , char *argv[]) {
 
                 if (iss >> val)
                 {
-                    occurrenceOrderLimit(argv[1] , val);
+                    try
+                    {
+                        occurrenceOrderLimit(argv[1] , val);
+                    }
+                    catch(std::invalid_argument &Error)
+                    {
+                        std::cout << Error.what();
+                    }
                 }
                 else
                 {
@@ -101,7 +162,14 @@ int main(int argc , char *argv[]) {
 
         else if (strcmp(argv[2] , "-mostrar") == 0)
         {
-            mostrar(argv[1] , argv[3]);
+           try
+           {
+               mostrar(argv[1] , argv[3]);
+           }
+           catch(std::invalid_argument &Error)
+           {
+               std::cout << Error.what();
+           }
         }
 
         else cout << "Ingrese un Argumento Valido (ver instrucciones)\n";
@@ -112,9 +180,29 @@ int main(int argc , char *argv[]) {
     {
         if(strcmp(argv[2] , "-palabras") == 0)
         {
-            if(strcmp(argv[3] , "-excluir") == 0) alphabeticalOrderIgnore(argv[1] , argv[4]);
+            if(strcmp(argv[3] , "-excluir") == 0)
+            {
+                try
+                {
+                    alphabeticalOrderIgnore(argv[1] , argv[4]);
+                }
+                catch(std::invalid_argument &Error)
+                {
+                    std::cout << Error.what();
+                }
+            }
 
-            else if(strcmp(argv[3] , "-excluirf") == 0) alphabeticalOrderIgnoreFile(argv[1] , argv[4]);
+            else if(strcmp(argv[3] , "-excluirf") == 0)
+            {
+                try
+                {
+                    alphabeticalOrderIgnoreFile(argv[1] , argv[4]);
+                }
+                catch(std::invalid_argument &Error)
+                {
+                    std::cout << Error.what();
+                }
+            }
 
             else cout << "Ingrese un Argumento Valido (ver instrucciones)\n";
 
@@ -123,8 +211,28 @@ int main(int argc , char *argv[]) {
 
         else if(strcmp(argv[2] , "-ocurrencias") == 0)
         {
-            if(strcmp(argv[3] , "-excluir") == 0) occurrenceOrderIgnore(argv[1] , argv[4]);
-            else if(strcmp(argv[3] , "-excluirf") == 0) occurrenceOrderIgnoreFile(argv[1] , argv[4]);
+            if(strcmp(argv[3] , "-excluir") == 0)
+            {
+                try
+                {
+                    occurrenceOrderIgnore(argv[1] , argv[4]);
+                }
+                catch(std::invalid_argument &Error)
+                {
+                    std::cout << Error.what();
+                }
+            }
+            else if(strcmp(argv[3] , "-excluirf") == 0)
+            {
+                try
+                {
+                    occurrenceOrderIgnoreFile(argv[1] , argv[4]);
+                }
+                catch(std::invalid_argument &Error)
+                {
+                    std::cout << Error.what();
+                }
+            }
         }
 
         else cout << "Ingrese un Argumento Valido (ver instrucciones)\n";
