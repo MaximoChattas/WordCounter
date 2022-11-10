@@ -417,7 +417,10 @@ void alphabeticalOrderIgnore (char *file , char* toignore)
                 //Se elimina la palabra del arbol
                 alphOrder.remove(word);
             }
-            catch (std::invalid_argument &ERROR){}
+            catch (std::invalid_argument &ERROR)
+            {
+                std::cout << word << " no se encuentra en el texto\n";
+            }
         }
 
         alphOrder.inorder();
@@ -463,7 +466,10 @@ void alphabeticalOrderIgnoreFile(char *file, char *filetoignore)
                 {
                     alphOrder.remove(auxString);
                 }
-                catch (std::invalid_argument &Error){}
+                catch (std::invalid_argument &Error)
+                {
+                    std::cout << auxString << " no se encuentra en el texto\n";
+                }
             }
             alphOrder.inorder();
         }
@@ -587,7 +593,10 @@ void occurrenceOrderIgnore(char *file , char *toignore)
             {
                 hash.remove(word);
             }
-            catch (std::invalid_argument &ERROR){}
+            catch (std::invalid_argument &ERROR)
+            {
+                std::cout << word << " no se encuentra en el texto\n";
+            }
         }
 
         hash.toTree(occurenceOrder);
@@ -633,7 +642,10 @@ void occurrenceOrderIgnoreFile(char *file, char *filetoignore)
                 {
                     hash.remove(auxString);
                 }
-                catch (std::invalid_argument &Error){}
+                catch (std::invalid_argument &Error)
+                {
+                    std::cout << auxString << " no se encuentra en el texto\n";
+                }
             }
 
             hash.toTree(occurenceOrder);
