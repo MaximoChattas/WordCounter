@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include "HashEntry.h"
 #include "../Lista/Lista.h"
+#include "../Arbol/ArbolBinario.h"
 
 template <class K, class T> class HashMapList {
 private:
@@ -32,6 +33,8 @@ public:
   ~HashMapList();
 
   bool esVacio();
+
+  void toTree(ArbolBinario<K> &tree);
 };
 
 template <class K, class T> HashMapList<K, T>::HashMapList(unsigned int tamanio)
@@ -155,7 +158,38 @@ template <class K, class T> void HashMapList<K, T>::putOcurrencias(K clave, T va
 }
 
 template <class K, class T> void HashMapList<K, T>::remove(K clave)
-{}
+{
+    unsigned int pos = hashFuncP(clave);
+
+    if (tabla[pos] == NULL)
+    {
+        throw (std::invalid_argument("El dato no se encuentra en la tabla\n"));
+    }
+
+    Nodo<HashEntry<K , T> > *auxNodo;
+    auxNodo = tabla[pos]->getInicio();
+
+    if(auxNodo->getDato().getClave() == clave)
+    {
+        tabla[pos]->setInicio(auxNodo->getSiguiente());
+        delete auxNodo;
+        return;
+    }
+
+    while (auxNodo->getSiguiente() != nullptr)
+    {
+        if(auxNodo->getSiguiente()->getDato().getClave() == clave)
+        {
+            auxNodo->setSiguiente(auxNodo->getSiguiente()->getSiguiente());
+            delete auxNodo->getSiguiente();
+            return;
+        }
+        auxNodo = auxNodo->getSiguiente();
+    }
+
+    throw (std::invalid_argument("El dato no se encuentra en la tabla\n"));
+
+}
 
 template <class K, class T> bool HashMapList<K, T>::esVacio()
 {
@@ -171,5 +205,27 @@ template <class K, class T> unsigned int HashMapList<K, T>::hashFunc(K clave)
     throw std::invalid_argument("ERROR: Función Hash por Defecto\n");
 }
 
+template<class K, class T>
+void HashMapList<K, T>::toTree(ArbolBinario<K> &tree)
+{
+    for (int i = 0 ; i < tamanio ; i++)
+    {
+        if(tabla[i] != NULL)
+        {
+            Nodo<HashEntry<K , T> > *auxNodo = tabla[i]->getInicio();
+
+            while(auxNodo != nullptr)
+            {
+                int ocurrencias = auxNodo->getDato().getOcurrencias();
+                K dato = auxNodo->getDato().getClave();
+
+                tree.putOcurrencias(dato , ocurrencias);
+
+                auxNodo = auxNodo->getSiguiente();
+            }
+        }
+    }
+
+}
 
 #endif // U05_HASH_HASHMAP_HASHMAP_H_

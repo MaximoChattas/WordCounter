@@ -427,4 +427,5 @@ CMakeFiles/U00-E06.dir/main.cpp.o: \
   /Users/maxichattas/Documents/UCC/2º\ Año/Programación\ III/Práctico/Parciales/c1-8a11hs-entregaparcial2-MaximoChattas/Arbol/../Lista/Nodo.h \
   /Users/maxichattas/Documents/UCC/2º\ Año/Programación\ III/Práctico/Parciales/c1-8a11hs-entregaparcial2-MaximoChattas/HashMap/HashMapList.h \
   /Users/maxichattas/Documents/UCC/2º\ Año/Programación\ III/Práctico/Parciales/c1-8a11hs-entregaparcial2-MaximoChattas/HashMap/HashEntry.h \
-  /Users/maxichattas/Documents/UCC/2º\ Año/Programación\ III/Práctico/Parciales/c1-8a11hs-entregaparcial2-MaximoChattas/HashMap/../Lista/Lista.h
+  /Users/maxichattas/Documents/UCC/2º\ Año/Programación\ III/Práctico/Parciales/c1-8a11hs-entregaparcial2-MaximoChattas/HashMap/../Lista/Lista.h \
+  /Users/maxichattas/Documents/UCC/2º\ Año/Programación\ III/Práctico/Parciales/c1-8a11hs-entregaparcial2-MaximoChattas/HashMap/../Arbol/ArbolBinario.h

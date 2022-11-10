@@ -46,6 +46,8 @@ public:
   bool buscar(T dato);
 
   Nodo<T>* getInicio();
+
+  void setInicio (Nodo<T> *newInicio);
 };
 
 /**
@@ -387,6 +389,12 @@ bool Lista<T>::buscar(T dato)
         auxNodo = auxNodo->getSiguiente();
     }
     return false;
+}
+
+template<class T>
+void Lista<T>::setInicio(Nodo<T> *newInicio)
+{
+    inicio = newInicio;
 }
 
 #endif // U02_LISTAS_LISTA_LISTA_H_

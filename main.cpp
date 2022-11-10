@@ -498,21 +498,7 @@ void occurrenceOrder(char *file)
             hash.putOcurrencias(auxString , auxString);
         }
 
-        textFile.clear();
-        textFile.seekg(0 , ios::beg);
-
-        //CAMBIAR POR FUNC. DENTRO DE HASH
-        //Se recorre nuevamente el texto, se ingresan las palabras en un árbol ordenadas por ocurrencias
-        while (textFile >> auxString)
-        {
-            deletePunctuation(auxString);
-            HashEntry<string , string> auxEntry = hash.get(auxString);
-
-            string data = auxEntry.getValor();
-            int ocurrencia = auxEntry.getOcurrencias();
-
-            occurenceOrder.putOcurrencias(data , ocurrencia);
-        }
+        hash.toTree(occurenceOrder);
 
         occurenceOrder.inorder();
     }
@@ -546,20 +532,7 @@ void occurrenceOrderLimit(char *file, int cantidad)
             hash.putOcurrencias(auxString , auxString);
         }
 
-        textFile.clear();
-        textFile.seekg(0 , ios::beg);
-
-        //Se recorre nuevamente el texto, se ingresan las palabras en un árbol ordenadas por ocurrencias
-        while (textFile >> auxString)
-        {
-            deletePunctuation(auxString);
-            HashEntry<string , string> auxEntry = hash.get(auxString);
-
-            string data = auxEntry.getValor();
-            int ocurrencia = auxEntry.getOcurrencias();
-
-            occurenceOrder.putOcurrencias(data , ocurrencia);
-        }
+        hash.toTree(occurenceOrder);
 
         try
         {
@@ -599,22 +572,6 @@ void occurrenceOrderIgnore(char *file , char *toignore)
             hash.putOcurrencias(auxString , auxString);
         }
 
-        textFile.clear();
-        textFile.seekg(0 , ios::beg);
-
-        //CAMBIAR POR FUNC. DENTRO DE HASH
-        //Se recorre nuevamente el texto, se ingresan las palabras en un árbol ordenadas por ocurrencias
-        while (textFile >> auxString)
-        {
-            deletePunctuation(auxString);
-            HashEntry<string , string> auxEntry = hash.get(auxString);
-
-            string data = auxEntry.getValor();
-            int ocurrencia = auxEntry.getOcurrencias();
-
-            occurenceOrder.putOcurrencias(data , ocurrencia);
-        }
-
         int size = strlen(toignore);
         for (int i = 0 ; i < size ; i++)
         {
@@ -628,18 +585,60 @@ void occurrenceOrderIgnore(char *file , char *toignore)
 
             try
             {
-                int ocurrencias = hash.get(word).getOcurrencias();
-                //Se elimina la palabra del arbol
-                occurenceOrder.removeOcurrencias(word , ocurrencias);
+                hash.remove(word);
             }
             catch (std::invalid_argument &ERROR){}
         }
 
+        hash.toTree(occurenceOrder);
         occurenceOrder.inorder();
     }
     else
     {
         throw std::invalid_argument("ERROR: El archivo no fue encontrado\n");
+    }
+}
+
+/**
+ * Muestra todas las palabras del texto en orden por ocurrencias excepto las palabras en el segundo archivo de texto
+ * @param file cadena de caracteres que contiene el nombre del archivo a leer
+ * @param filetoignore cadena de caracteres que contiene el nombre del archivo con las palabras a ignorar
+ */
+void occurrenceOrderIgnoreFile(char *file, char *filetoignore)
+{
+    ArbolBinario<string> occurenceOrder;
+    HashMapList<string , string> hash(10000, hashfunc);
+    std::ifstream textFile; //Text File to Read
+    std::ifstream ignoreFile;
+    std::string auxString;
+
+    textFile.open(file);
+    ignoreFile.open(filetoignore);
+
+    if(textFile.is_open())
+    {
+        if(ignoreFile.is_open())
+        {
+            //Se recorre el texto, se ingresan las palabras en una tabla Hash para obtener las ocurrencias de cada una
+            while (textFile >> auxString)
+            {
+                deletePunctuation(auxString);
+                hash.putOcurrencias(auxString, auxString);
+            }
+
+            while(ignoreFile >> auxString)
+            {
+                deletePunctuation(auxString);
+                try
+                {
+                    hash.remove(auxString);
+                }
+                catch (std::invalid_argument &Error){}
+            }
+
+            hash.toTree(occurenceOrder);
+            occurenceOrder.inorder();
+        }
     }
 }
 
@@ -715,9 +714,15 @@ void deletePunctuation(string &a)
         else if (ispunct(a[i])) //Puntuacion
         {
             a.erase(i--, 1);
-            len = a.size();
+            len--;
         }
     }
+
+//    if(a.find("¿") != string::npos)
+//    {
+//        a.erase(a.find("¿") , 1);
+//    }
+//    cout << a;
 
 }
 
@@ -734,66 +739,4 @@ unsigned int hashfunc (string word)
         key *= word[i];
     }
     return key % 10000;
-}
-
-void occurrenceOrderIgnoreFile(char *file, char *filetoignore)
-{
-    ArbolBinario<string> occurenceOrder;
-    HashMapList<string , string> hash(10000, hashfunc);
-    std::ifstream textFile; //Text File to Read
-    std::ifstream ignoreFile;
-    std::string auxString;
-
-    textFile.open(file);
-    ignoreFile.open(filetoignore);
-
-    if(textFile.is_open())
-    {
-       if(ignoreFile.is_open())
-       {
-           //Se ingresan todas las palabras a ignorar en una lista
-           Lista<string> palabrasAIgnorar;
-           while(ignoreFile >> auxString)
-           {
-               deletePunctuation(auxString);
-               palabrasAIgnorar.insertarUltimo(auxString);
-           }
-
-           //Se recorre el texto, se ingresan las palabras en una tabla Hash para obtener las ocurrencias de cada una
-           while (textFile >> auxString)
-           {
-               deletePunctuation(auxString);
-
-               //Si la palabra se encuentra en la lista a ignorar, no se ingresa en el hash
-               if(!palabrasAIgnorar.buscar(auxString))
-               {
-                   hash.putOcurrencias(auxString, auxString);
-               }
-           }
-
-           textFile.clear();
-           textFile.seekg(0, ios::beg);
-
-           //CAMBIAR POR FUNC. DENTRO DE HASH
-           //Se recorre nuevamente el texto, se ingresan las palabras en un árbol ordenadas por ocurrencias
-           while (textFile >> auxString)
-           {
-               deletePunctuation(auxString);
-
-               try
-               {
-                   HashEntry<string, string> auxEntry = hash.get(auxString);
-                   string data = auxEntry.getValor();
-                   int ocurrencia = auxEntry.getOcurrencias();
-
-                   occurenceOrder.putOcurrencias(data, ocurrencia);
-               } catch (std::invalid_argument &Error){}
-
-           }
-
-           occurenceOrder.inorder();
-       }
-    }
-
-
 }
